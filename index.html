@@ -119,7 +119,7 @@ textarea{resize:vertical}
 <label>Wie heisst du?<input id="name" autocomplete="name" placeholder="Vor- und Nachname"></label>
 <p>Wir liefern nur in Winterthur Hegi und bringen deine Bestellung selbst vorbei. Abholen geht nicht.</p>
 <label>Lieferadresse in Winterthur Hegi<textarea id="addr" rows="2" placeholder="Strasse und Hausnummer"></textarea></label>
-<label>Nachricht an uns (freiwillig)<textarea id="note" rows="2"></textarea></label>
+<label>Nachricht oder Vorschläge, was wir noch machen könnten<textarea id="note" rows="2"></textarea></label>
 <button class="big" id="send" type="button">Bestellung per E-Mail senden</button>
 <p id="msg" role="status"></p>
 <div id="fb" hidden>
@@ -191,7 +191,7 @@ function orderText() {
   return ["Hallo CANUSSA!", "", "Ich möchte gerne bestellen:", "", ...lines, "", "Total: " + chf(t), "",
     "Name: " + $("#name").value.trim(),
     "Lieferadresse (Winterthur Hegi): " + $("#addr").value.trim(),
-    ...(note ? ["Nachricht: " + note] : []), "", "Danke und liebe Grüsse"].join("\r\n");
+    ...(note ? ["Nachricht oder Vorschläge: " + note] : []), "", "Danke und liebe Grüsse"].join("\r\n");
 }
 
 $("#send").addEventListener("click", () => {
