@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CANUSSA – Süsses von Kindern</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap">
+<style>
+:root{--paper:#fff4d6;--card:#fffdf5;--ink:#3b2a1f;--muted:#6f5a49;--line:#3b2a1f;--red:#d4402a;--on-red:#fff;--yellow:#ffc933;--mint:#4fc3a1;--sky:#4ea8e8;--brown:#a65a1c;--pink:#ff8fb1;--car:#e0922f;--bgop:.5;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#1c2135;--card:#272d47;--ink:#f6ecd9;--muted:#c4b9a6;--line:#f1e4cc;--red:#ff8a73;--on-red:#2b130e;--yellow:#ffd65a;--mint:#6fdcb9;--sky:#6bbcf5;--brown:#e6a766;--pink:#ff9fc0;--car:#f0a94a;--bgop:.28;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#1c2135;--card:#272d47;--ink:#f6ecd9;--muted:#c4b9a6;--line:#f1e4cc;--red:#ff8a73;--on-red:#2b130e;--yellow:#ffd65a;--mint:#6fdcb9;--sky:#6bbcf5;--brown:#e6a766;--pink:#ff9fc0;--car:#f0a94a;--bgop:.28;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+[hidden]{display:none!important}
+body{margin:0;background:#4169e1;color:var(--ink);font:20px/1.4 "Patrick Hand","Comic Sans MS","Chalkboard SE","Marker Felt",cursive,sans-serif}
+.bg{position:fixed;inset:0;z-index:-1;opacity:.9;pointer-events:none;--line:#fff6dc}
+.bg svg{width:100%;height:100%;display:block}
+.o{fill:none;stroke:var(--line);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.fy{fill:var(--yellow)}.fr{fill:var(--red)}.fm{fill:var(--mint)}.fs{fill:var(--sky)}.fb{fill:var(--brown)}.fp{fill:var(--pink)}.fc{fill:var(--car)}.fw{fill:var(--card)}
+main{max-width:880px;margin:0 auto;padding:18px 16px 110px}
+.card{position:relative;background:var(--card);border:3px solid var(--line);border-radius:26px 20px 28px 18px/20px 28px 18px 26px;box-shadow:5px 6px 0 var(--yellow);padding:18px}
+.hero{text-align:center;transform:rotate(-1deg);margin-bottom:26px}
+h1{margin:0;font-size:clamp(2.7rem,12vw,4.4rem);line-height:1;font-weight:400;color:var(--red);text-shadow:3px 3px 0 var(--yellow);transform:rotate(-2deg)}
+.hero p{margin:.6em auto 0;max-width:30em}
+.hero .lead{font-size:1.3rem}
+h2{display:inline-block;margin:26px 4px 14px;padding:2px 18px;font-size:1.8rem;font-weight:400;background:var(--card);border:3px solid var(--line);border-radius:18px 24px 16px 22px;transform:rotate(1deg)}
+h3{margin:.3em 0;font-size:1.4rem;font-weight:400;line-height:1.15}
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.grid .card:nth-child(2){box-shadow:5px 6px 0 var(--mint)}
+.grid .card:nth-child(3){box-shadow:5px 6px 0 var(--sky)}
+.badge{position:absolute;top:12px;right:12px;z-index:1;padding:0 12px;font-size:1.1rem;color:#3b2a1f;background:var(--yellow);border:3px solid var(--line);border-radius:14px;transform:rotate(6deg)}
+.soon .pic{filter:grayscale(.4);opacity:.85}
+.ferienbanner{margin-bottom:22px;text-align:center;font-size:1.3rem;color:#3b2a1f;background:var(--yellow);box-shadow:5px 6px 0 var(--line)}
+.ferien #order,.ferien #order-title,.ferien .step,.ferien #bar{display:none!important}
+.pic{display:block;width:100%;max-width:170px;height:auto;margin:0 auto 6px}
+.card p{margin:.3em 0}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:12px}
+.price{font-size:1.5rem;color:var(--red)}
+.price small{font-size:1rem;color:var(--muted)}
+.step{display:flex;align-items:center;gap:8px}
+.step button{width:46px;height:46px;padding:0;border-radius:50%;border:3px solid var(--line);background:var(--yellow);color:#3b2a1f;font:inherit;font-size:1.8rem;line-height:1;cursor:pointer}
+.step button:active{transform:scale(.92)}
+.step button:disabled{opacity:.4;cursor:default}
+.step output{min-width:1.6em;text-align:center;font-size:1.7rem}
+ul{list-style:none;margin:0;padding:0}
+li{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:2px dashed var(--line)}
+li.empty{color:var(--muted);border:0}
+.total{display:flex;justify-content:space-between;font-size:1.6rem;margin:12px 0 6px}
+label{display:block;margin-top:14px}
+input,textarea{display:block;width:100%;margin-top:4px;padding:8px 12px;font:inherit;color:var(--ink);background:var(--paper);border:3px solid var(--line);border-radius:14px 18px 12px 16px}
+textarea{resize:vertical}
+:is(input,textarea,button):focus-visible{outline:3px dashed var(--sky);outline-offset:3px}
+.big{width:100%;margin-top:18px;padding:12px;font:inherit;font-size:1.5rem;color:var(--on-red);background:var(--red);border:3px solid var(--line);border-radius:20px 26px 18px 24px;box-shadow:4px 5px 0 var(--line);cursor:pointer}
+.big:active{transform:translate(2px,2px);box-shadow:2px 3px 0 var(--line)}
+#msg{min-height:1.4em;margin:12px 0 0}
+#fb{margin-top:10px;padding-top:10px;border-top:2px dashed var(--line);font-size:1.05rem}
+#fb textarea{height:9.5em;font-size:16px}
+#fb button{margin-top:8px;padding:6px 16px;font:inherit;color:#3b2a1f;background:var(--yellow);border:3px solid var(--line);border-radius:14px;cursor:pointer}
+.note{margin-top:26px;font-size:1rem;box-shadow:4px 5px 0 var(--pink)}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;justify-content:center;align-items:center;gap:16px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--card);border-top:3px solid var(--line);font-size:1.3rem}
+.bar .big{width:auto;margin:0;padding:6px 18px;font-size:1.25rem}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="bg" aria-hidden="true">
+<svg xmlns="http://www.w3.org/2000/svg">
+<defs>
+<symbol id="sun" viewBox="0 0 100 100"><circle class="o fy" cx="50" cy="50" r="20"/><path class="o" d="M50 8v14M50 78v14M8 50h14M78 50h14M20 20l10 10M70 70l10 10M80 20L70 30M30 70L20 80"/><path class="o" d="M42 46v2M58 46v2M42 57q8 7 16 0"/></symbol>
+<symbol id="house" viewBox="0 0 100 100"><path class="o fp" d="M18 48h64v42H18z"/><path class="o fr" d="M10 50L50 14l41 37z"/><path class="o fs" d="M44 66h14v24H44z"/><path class="o fy" d="M24 58h14v12H24zM66 58h12v12H66z"/></symbol>
+<symbol id="flower" viewBox="0 0 100 100"><path class="o" d="M50 48Q44 74 52 95M50 78q-16 0-20-14M51 84q14 0 20-14"/><circle class="o fp" cx="50" cy="16" r="11"/><circle class="o fp" cx="69" cy="30" r="11"/><circle class="o fp" cx="62" cy="52" r="11"/><circle class="o fp" cx="38" cy="52" r="11"/><circle class="o fp" cx="31" cy="30" r="11"/><circle class="o fy" cx="50" cy="36" r="9"/></symbol>
+<symbol id="heart" viewBox="0 0 100 100"><path class="o fr" d="M50 84C14 58 16 26 36 24c9 0 14 6 14 12 0-6 5-12 14-12 20 2 22 34-14 60z"/></symbol>
+<symbol id="star" viewBox="0 0 100 100"><polygon class="o fy" points="50,10 61,38 92,40 68,60 76,90 50,73 24,90 32,60 8,40 39,38"/></symbol>
+<symbol id="cloud" viewBox="0 0 100 100"><path class="o fs" d="M24 68c-14 0-16-20-2-24 0-16 22-22 32-10 14-6 28 6 22 20 10 2 8 14-4 14z"/></symbol>
+<symbol id="rainbow" viewBox="0 0 100 100"><path class="o" style="stroke:var(--red);stroke-width:6" d="M10 80a40 40 0 0 1 80 0"/><path class="o" style="stroke:var(--yellow);stroke-width:6" d="M20 80a30 30 0 0 1 60 0"/><path class="o" style="stroke:var(--sky);stroke-width:6" d="M30 80a20 20 0 0 1 40 0"/></symbol>
+<symbol id="candy" viewBox="0 0 100 100"><path class="o fr" d="M28 50L8 36v28zM72 50l20-14v28z"/><ellipse class="o fc" cx="50" cy="50" rx="22" ry="16"/><path class="o" style="stroke:var(--brown)" d="M41 36q-4 14 0 28M59 36q4 14 0 28"/></symbol>
+<symbol id="lolli" viewBox="0 0 100 100"><path class="o fw" d="M47 66h6v30h-6z"/><circle class="o fc" cx="50" cy="38" r="30"/><path class="o" style="stroke:var(--brown)" d="M50 38a4 4 0 0 1 8 0a8 8 0 0 1-16 0a12 12 0 0 1 24 0a16 16 0 0 1-32 0a20 20 0 0 1 40 0"/><path class="o" style="stroke:var(--card);opacity:.85" d="M28 24q4-8 12-11"/></symbol>
+<g id="bon"><ellipse class="o fc" rx="21" ry="17"/><path class="o" style="stroke:var(--card);opacity:.85" d="M-14-6q3-7 10-9"/><ellipse class="o fb" cx="4" cy="2" rx="8" ry="7"/><path class="o" d="M-1-3q5-4 10 0"/></g>
+<symbol id="hazel" viewBox="0 0 100 100"><use href="#bon" x="50" y="34"/><use href="#bon" x="30" y="64"/><use href="#bon" x="70" y="64"/></symbol>
+<symbol id="popcorn" viewBox="0 0 100 100"><circle class="o fy" cx="30" cy="40" r="12"/><circle class="o fy" cx="70" cy="40" r="12"/><circle class="o fc" cx="50" cy="28" r="14"/><circle class="o fy" cx="40" cy="46" r="10"/><circle class="o fc" cx="61" cy="46" r="10"/><path class="o fr" d="M22 50h56l-8 44H30z"/><path class="o" style="stroke:var(--card)" d="M38 52l2 40M50 52v40M62 52l-2 40"/></symbol>
+<pattern id="p" width="480" height="480" patternUnits="userSpaceOnUse">
+<use href="#sun" width="90" height="90" transform="translate(15 15) rotate(-6 45 45)"/>
+<use href="#cloud" width="100" height="100" transform="translate(190 30)"/>
+<use href="#house" width="100" height="100" transform="translate(350 10) rotate(5 50 50)"/>
+<use href="#flower" width="90" height="90" transform="translate(40 160) rotate(-10 45 45)"/>
+<use href="#heart" width="70" height="70" transform="translate(200 170) rotate(12 35 35)"/>
+<use href="#lolli" width="100" height="100" transform="translate(330 150) rotate(-12 50 50)"/>
+<use href="#rainbow" width="110" height="110" transform="translate(10 300)"/>
+<use href="#star" width="70" height="70" transform="translate(170 310) rotate(8 35 35)"/>
+<use href="#candy" width="90" height="90" transform="translate(260 320) rotate(-8 45 45)"/>
+<use href="#hazel" width="100" height="100" transform="translate(370 310)"/>
+<use href="#heart" width="55" height="55" transform="translate(70 415) rotate(-10 27 27)"/>
+<use href="#flower" width="70" height="70" transform="translate(240 405) rotate(6 35 35)"/>
+</pattern>
+</defs>
+<rect width="100%" height="100%" fill="url(#p)"/>
+</svg>
+</div>
+
+<main>
+<div class="card ferienbanner" id="ferienbanner" role="status" hidden><b>Schulferien!</b> Während der Schulferien nehmen wir keine Bestellungen entgegen. <span id="wieder"></span></div>
+<header class="card hero">
+<h1>CANUSSA</h1>
+<p class="lead">Selbst gemachte Süssigkeiten, von Kindern gekocht und von Kindern verkauft!</p>
+<p>Wir rühren, kochen und verpacken alles selbst und bringen es persönlich zu dir nach Winterthur Hegi.</p>
+</header>
+
+<h2>Unser Sortiment</h2>
+<section class="grid" id="shop" aria-label="Sortiment"></section>
+
+<h2 id="order-title">Dein Korb</h2>
+<section class="card" id="order" aria-labelledby="order-title">
+<ul id="lines"></ul>
+<div class="total"><span>Total</span><b id="total">CHF 0.00</b></div>
+<label>Wie heisst du?<input id="name" autocomplete="name" placeholder="Vor- und Nachname"></label>
+<p>Wir liefern nur in Winterthur Hegi und bringen deine Bestellung selbst vorbei. Abholen geht nicht.</p>
+<label>Lieferadresse in Winterthur Hegi<textarea id="addr" rows="2" placeholder="Strasse und Hausnummer"></textarea></label>
+<label>Nachricht an uns (freiwillig)<textarea id="note" rows="2"></textarea></label>
+<button class="big" id="send" type="button">Bestellung per E-Mail senden</button>
+<p id="msg" role="status"></p>
+<div id="fb" hidden>
+<p>Dein Mailprogramm geht nicht auf? Kopiere den Text und schick ihn an <b id="fbmail"></b>.</p>
+<textarea id="fbtxt" readonly></textarea>
+<button id="copy" type="button">Text kopieren</button>
+</div>
+</section>
+
+<p class="card note">Hinweis: Enthält Nüsse (Haselnüsse), kann Milch enthalten. Bei Allergien bitte vor dem Bestellen nachfragen.</p>
+</main>
+
+<div class="bar" id="bar" hidden>
+<span id="barinfo"></span>
+<button class="big" id="tocart" type="button">Zum Korb</button>
+</div>
+
+<script>
+// Hier eure E-Mail-Adresse eintragen: Bestellungen kommen dorthin.
+const SHOP_EMAIL = "canussa@outlook.com";
+const PRODUCTS = [
+  {id:"hazel", name:"Caramellisierte Haselnuss-Bonbons", desc:"Knackige Haselnüsse in goldenem Caramel gewendet. Süss, nussig und schön klebrig.", price:2, unit:"Säckli mit 10 Stück"},
+  {id:"lolli", name:"Caramel-Lollipops", desc:"Goldgelbe Caramel-Lutscher am Stiel. Langsam schlecken, lange Freude!", price:1.5, unit:"Stück"},
+  {id:"popcorn", name:"Caramel-Popcorn", desc:"Luftig, knusprig und mit Caramel überzogen. Das gibt es bei uns bald!", price:0, unit:"Becher", soon:true}
+];
+const MAX = 20;
+const cart = {}; // Bestellung bleibt nur im Arbeitsspeicher
+const $ = s => document.querySelector(s);
+const chf = n => "CHF " + n.toFixed(2);
+
+$("#shop").innerHTML = PRODUCTS.map(p => `<article class="card${p.soon ? " soon" : ""}">
+<svg class="pic" viewBox="0 0 100 100" role="img" aria-label="${p.name}"><use href="#${p.id}"/></svg>
+${p.soon ? '<span class="badge">Bald verfügbar</span>' : ""}<h3>${p.name}</h3><p>${p.desc}</p>
+<div class="row"><div class="price">${p.soon ? "<small>Preis folgt</small>" : `${chf(p.price)} <small>pro ${p.unit}</small>`}</div>
+<div class="step"><button type="button" data-id="${p.id}" data-d="-1" aria-label="Eins weniger">−</button><output id="q-${p.id}">0</output><button type="button" data-id="${p.id}" data-d="1" aria-label="Eins mehr"${p.soon ? " disabled" : ""}>+</button></div></div>
+</article>`).join("");
+
+$("#shop").addEventListener("click", e => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  const id = b.dataset.id;
+  cart[id] = Math.min(MAX, Math.max(0, (cart[id] || 0) + Number(b.dataset.d)));
+  update();
+});
+
+function update() {
+  let n = 0, t = 0, li = "";
+  PRODUCTS.forEach(p => {
+    const q = cart[p.id] || 0;
+    $("#q-" + p.id).textContent = q;
+    document.querySelector(`button[data-id="${p.id}"][data-d="-1"]`).disabled = !q;
+    n += q; t += q * p.price;
+    if (q) li += `<li><span>${q} × ${p.name}</span><b>${chf(q * p.price)}</b></li>`;
+  });
+  $("#lines").innerHTML = li || `<li class="empty">Dein Korb ist noch leer. Such dir etwas Feines aus!</li>`;
+  $("#total").textContent = chf(t);
+  $("#bar").hidden = !n;
+  $("#barinfo").textContent = `${n} ${n === 1 ? "Sache" : "Sachen"}, ${chf(t)}`;
+  $("#fb").hidden = true;
+}
+
+function orderText() {
+  let t = 0;
+  const lines = PRODUCTS.filter(p => cart[p.id]).map(p => {
+    t += cart[p.id] * p.price;
+    return `${cart[p.id]} × ${p.name} à ${chf(p.price)} = ${chf(cart[p.id] * p.price)}`;
+  });
+  const note = $("#note").value.trim();
+  return ["Hallo CANUSSA!", "", "Ich möchte gerne bestellen:", "", ...lines, "", "Total: " + chf(t), "",
+    "Name: " + $("#name").value.trim(),
+    "Lieferadresse (Winterthur Hegi): " + $("#addr").value.trim(),
+    ...(note ? ["Nachricht: " + note] : []), "", "Danke und liebe Grüsse"].join("\r\n");
+}
+
+$("#send").addEventListener("click", () => {
+  const msg = $("#msg");
+  if (!PRODUCTS.some(p => cart[p.id])) { msg.textContent = "Leg zuerst etwas in den Korb."; return; }
+  if (!$("#name").value.trim()) { msg.textContent = "Schreib bitte deinen Namen auf."; $("#name").focus(); return; }
+  if (!$("#addr").value.trim()) { msg.textContent = "Wohin sollen wir liefern? Schreib deine Adresse in Hegi auf."; $("#addr").focus(); return; }
+  const text = orderText();
+  const url = "mailto:" + SHOP_EMAIL + "?subject=" + encodeURIComponent("Bestellung von " + $("#name").value.trim()) + "&body=" + encodeURIComponent(text);
+  $("#fbtxt").value = text;
+  $("#fbmail").textContent = SHOP_EMAIL;
+  $("#fb").hidden = false;
+  msg.textContent = "Dein Mailprogramm öffnet sich. Schick die Mail ab, dann ist deine Bestellung bei uns!";
+  location.href = url;
+});
+
+$("#copy").addEventListener("click", async () => {
+  const t = $("#fbtxt");
+  try { await navigator.clipboard.writeText(t.value); $("#msg").textContent = "Kopiert!"; }
+  catch (e) { t.select(); $("#msg").textContent = "Der Text ist markiert. Jetzt nur noch kopieren."; }
+});
+
+$("#tocart").addEventListener("click", () => $("#order").scrollIntoView({behavior:"smooth"}));
+
+// Schulferien Winterthur (Quelle: Schulferienplan der Stadt Winterthur 2025–2033, Änderungen vorbehalten).
+// Jeder Eintrag: [erster Ferientag, letzter Ferientag], beide inklusive.
+const SCHULFERIEN = [
+  ["2026-01-31","2026-02-15"],["2026-04-18","2026-05-03"],["2026-07-11","2026-08-16"],["2026-10-03","2026-10-18"],["2026-12-19","2027-01-03"],
+  ["2027-02-06","2027-02-21"],["2027-04-24","2027-05-09"],["2027-07-17","2027-08-22"],["2027-10-09","2027-10-24"],["2027-12-18","2028-01-02"],
+  ["2028-02-05","2028-02-20"],["2028-04-18","2028-04-30"],["2028-07-15","2028-08-20"],["2028-10-07","2028-10-22"],["2028-12-23","2029-01-07"],
+  ["2029-02-03","2029-02-18"],["2029-04-21","2029-05-06"],["2029-07-14","2029-08-19"],["2029-10-06","2029-10-21"],["2029-12-22","2030-01-06"],
+  ["2030-02-02","2030-02-17"],["2030-04-23","2030-05-05"],["2030-07-13","2030-08-18"],["2030-10-05","2030-10-20"],["2030-12-21","2031-01-05"],
+  ["2031-02-01","2031-02-16"],["2031-04-15","2031-04-27"],["2031-07-12","2031-08-17"],["2031-10-04","2031-10-19"],["2031-12-20","2032-01-04"],
+  ["2032-01-31","2032-02-15"],["2032-04-17","2032-05-02"],["2032-07-10","2032-08-15"],["2032-10-02","2032-10-17"],["2032-12-18","2033-01-02"],
+  ["2033-02-05","2033-02-20"],["2033-04-19","2033-05-01"],["2033-07-16","2033-08-21"]
+];
+const TEST_DATUM = null; // zum Testen z.B. "2026-12-24" eintragen
+function heute() {
+  if (TEST_DATUM) return TEST_DATUM;
+  try { return new Intl.DateTimeFormat("sv-SE", {timeZone:"Europe/Zurich"}).format(new Date()); }
+  catch (e) { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+}
+const ferien = SCHULFERIEN.find(([von, bis]) => heute() >= von && heute() <= bis);
+if (ferien) {
+  document.body.classList.add("ferien");
+  const [y, m, d] = ferien[1].split("-").map(Number);
+  const wieder = new Date(y, m - 1, d + 1).toLocaleDateString("de-CH", {weekday:"long", day:"numeric", month:"long", year:"numeric"});
+  $("#wieder").textContent = "Ab " + wieder + " sind wir wieder für dich da.";
+  $("#ferienbanner").hidden = false;
+}
+update();
+</script>
+</body>
+</html>
