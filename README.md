@@ -11,6 +11,7 @@ Alles steckt in **einer einzigen Datei** (`index.html`): kein Build, kein Server
 - Bestellung per E-Mail: Der Shop öffnet das Mailprogramm mit fertigem Bestelltext (`mailto:`). Falls das nicht klappt, kann der Text kopiert werden.
 - Lieferung nur in Winterthur Hegi (Adresse ist Pflichtfeld, keine Abholung)
 - Während der Winterthurer Schulferien: Bestellteil ausgeblendet, Hinweis oben auf der Seite
+- Fotogalerie am Seitenende, per Wischen oder Pfeiltasten durchblätterbar
 - Hell- und Dunkelmodus, für Handy und Desktop optimiert
 
 ## Veröffentlichen mit GitHub Pages
@@ -34,6 +35,7 @@ Alle Einstellungen stehen am Anfang des `<script>`-Blocks in `index.html`.
 | E-Mail für Bestellungen | `SHOP_EMAIL` | `"canussa@outlook.com"` |
 | Sortiment, Preise | `PRODUCTS` | `{id:"lolli", name:"…", desc:"…", price:1.5, unit:"Stück"}` |
 | Maximale Menge pro Artikel | `MAX` | `20` |
+| Fotogalerie | `GALERIE` | `{src:"images/foto-3.jpg", alt:"Beschreibung", caption:"Titel"}` |
 | Schulferien | `SCHULFERIEN` | `["2026-12-19","2027-01-03"]` (erster und letzter Ferientag) |
 | Ferienmodus testen | `TEST_DATUM` | `"2026-12-24"` (wieder `null` setzen!) |
 
@@ -45,6 +47,13 @@ Alle Einstellungen stehen am Anfang des `<script>`-Blocks in `index.html`.
 ### Hintergrundfarbe
 
 Im CSS bei `body{… background:#4169e1; …}` (Royal Blue).
+
+### Fotos hinzufügen
+
+1. Foto in den Ordner `images/` legen (JPG, längste Seite etwa 1000–1200 Pixel, möglichst unter 300 KB, damit die Seite schnell lädt).
+2. In `index.html` einen Eintrag in `GALERIE` ergänzen (siehe Tabelle oben).
+
+Handyfotos enthalten oft den Aufnahmeort (GPS). Vor dem Hochladen verkleinern und neu speichern oder die Metadaten entfernen. Kinder nur mit Einverständnis der Eltern erkennbar zeigen.
 
 ## Schulferien
 

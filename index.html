@@ -62,6 +62,20 @@ textarea{resize:vertical}
 .note{margin-top:26px;font-size:1rem;box-shadow:4px 5px 0 var(--pink)}
 .bar{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;justify-content:center;align-items:center;gap:16px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--card);border-top:3px solid var(--line);font-size:1.3rem}
 .bar .big{width:auto;margin:0;padding:6px 18px;font-size:1.25rem}
+.gallery{margin-top:4px}
+.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;border-radius:16px}
+.track::-webkit-scrollbar{display:none}
+.track:focus-visible{outline:3px dashed var(--sky);outline-offset:3px}
+.slide{flex:0 0 100%;scroll-snap-align:center;margin:0;text-align:center}
+.slide img{display:block;width:100%;height:clamp(240px,58vh,440px);object-fit:contain;background:var(--paper);border:3px solid var(--line);border-radius:16px}
+.slide figcaption{display:inline-block;margin-top:10px;padding:0 16px;font-size:1.15rem;background:var(--card);border:3px solid var(--line);border-radius:16px 20px 14px 18px}
+.gnav{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:12px}
+.gnav button{width:46px;height:46px;padding:0;border-radius:50%;border:3px solid var(--line);background:var(--yellow);color:#3b2a1f;font:inherit;font-size:1.8rem;line-height:1;cursor:pointer}
+.gnav button:active{transform:scale(.92)}
+.gnav button:disabled{opacity:.4;cursor:default}
+.dots{display:flex;gap:8px}
+.dots i{width:12px;height:12px;border-radius:50%;border:2px solid var(--line);background:var(--card)}
+.dots i.on{background:var(--red)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
@@ -111,6 +125,7 @@ textarea{resize:vertical}
 
 <h2>Unser Sortiment</h2>
 <section class="grid" id="shop" aria-label="Sortiment"></section>
+<p class="card note">Hinweis: Enthält Nüsse (Haselnüsse), kann Milch enthalten. Bei Allergien bitte vor dem Bestellen nachfragen.</p>
 
 <h2 id="order-title">Dein Korb</h2>
 <section class="card" id="order" aria-labelledby="order-title">
@@ -129,7 +144,13 @@ textarea{resize:vertical}
 </div>
 </section>
 
-<p class="card note">Hinweis: Enthält Nüsse (Haselnüsse), kann Milch enthalten. Bei Allergien bitte vor dem Bestellen nachfragen.</p>
+<h2 id="galerie-titel">Einblicke</h2>
+<section class="gallery" aria-labelledby="galerie-titel">
+<div class="track" id="track" tabindex="0" aria-label="Fotos, nach links oder rechts wischen"></div>
+<div class="gnav"><button id="gprev" type="button" aria-label="Voriges Foto">‹</button><div class="dots" id="dots" aria-hidden="true"></div><button id="gnext" type="button" aria-label="Nächstes Foto">›</button></div>
+</section>
+
+
 </main>
 
 <div class="bar" id="bar" hidden>
@@ -213,6 +234,29 @@ $("#copy").addEventListener("click", async () => {
   try { await navigator.clipboard.writeText(t.value); $("#msg").textContent = "Kopiert!"; }
   catch (e) { t.select(); $("#msg").textContent = "Der Text ist markiert. Jetzt nur noch kopieren."; }
 });
+
+// Fotogalerie: neue Fotos hier ergänzen (bei GitHub Pages: src:"images/foto-3.jpg")
+const GALERIE = [
+  {src:"images/foto-1.jpg", alt:"Zwei violette Papiersäckli, verziert mit Papier-Tannenbaum, Stern, Geschenk und Glitzer", caption:"Von uns verzierte Säckli"},
+  {src:"images/foto-2.jpg", alt:"Caramel-Lollipops in Klarsichtfolie, in einem Körbchen mit Tannenzweigen und Zieräpfeln", caption:"Lollipops im Körbchen"}
+];
+const track = $("#track"), dots = $("#dots"), gprev = $("#gprev"), gnext = $("#gnext");
+track.innerHTML = GALERIE.map(g => `<figure class="slide"><img src="${g.src}" alt="${g.alt}"><figcaption>${g.caption}</figcaption></figure>`).join("");
+dots.innerHTML = GALERIE.map(() => "<i></i>").join("");
+function gmark() {
+  const i = Math.round(track.scrollLeft / track.clientWidth);
+  [...dots.children].forEach((d, k) => d.classList.toggle("on", k === i));
+  gprev.disabled = i <= 0; gnext.disabled = i >= GALERIE.length - 1;
+  return i;
+}
+function ggo(d) {
+  const i = Math.max(0, Math.min(GALERIE.length - 1, gmark() + d));
+  track.scrollTo({left: i * track.clientWidth, behavior: matchMedia("(prefers-reduced-motion:reduce)").matches ? "auto" : "smooth"});
+}
+track.addEventListener("scroll", gmark);
+gprev.addEventListener("click", () => ggo(-1));
+gnext.addEventListener("click", () => ggo(1));
+gmark();
 
 $("#tocart").addEventListener("click", () => $("#order").scrollIntoView({behavior:"smooth"}));
 
